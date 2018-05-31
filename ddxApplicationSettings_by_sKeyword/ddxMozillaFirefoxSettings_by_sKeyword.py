@@ -9,6 +9,15 @@ dxConfigSettings = {
   "bApplicationTerminatesWithMainProcess": True,
 };
 
+# Firefox nightly (if installed). Tested with nightly >= 62.0a1
+sFirefoxNightlyPath_x64 = sProgramFilesPath_x64 and fsFirstExistingFile(
+  r"%s\Firefox Nightly\firefox.exe" % sProgramFilesPath_x64,
+);
+sFirefoxNightlyPath_x86 = fsFirstExistingFile(
+  r"%s\Firefox Nightly\firefox.exe" % sProgramFilesPath_x86,
+);
+sFirefoxNightlyPath = sFirefoxNightlyPath_x64 or sFirefoxNightlyPath_x86;
+
 # Firefox stable (if installed, otherwise use Firefox Developer Edition if installed).
 sApplicationBinaryPath_x64 = sProgramFilesPath_x64 and fsFirstExistingFile(
   r"%s\Mozilla Firefox\firefox.exe" % sProgramFilesPath_x64,
@@ -16,7 +25,7 @@ sApplicationBinaryPath_x64 = sProgramFilesPath_x64 and fsFirstExistingFile(
 sApplicationBinaryPath_x86 = fsFirstExistingFile(
   r"%s\Mozilla Firefox\firefox.exe" % sProgramFilesPath_x86,
 );
-sApplicationBinaryPath = sApplicationBinaryPath_x64 or sApplicationBinaryPath_x86;
+sApplicationBinaryPath = sApplicationBinaryPath_x64 or sApplicationBinaryPath_x86 or sFirefoxNightlyPath;
 
 sFirefoxProfilePath = mFileSystem.fsPath(os.getenv("TEMP"), "Firefox-profile");
 
@@ -104,6 +113,33 @@ ddxMozillaFirefoxSettings_by_sKeyword = {
     "fSetup": fFirefoxSetup,
     "fCleanup": fFirefoxCleanup,
     "sISA": "x64",
+    "dsURLTemplate_by_srSourceFilePath": dsURLTemplate_by_srSourceFilePath,
+  },
+   "firefox-nightly": {
+    "sBinaryPath": sFirefoxNightlyPath,
+    "fasGetStaticArguments": fasGetFirefoxStaticArguments,
+    "fasGetOptionalArguments": fasGetFirefoxOptionalArguments,
+    "dxConfigSettings": dxConfigSettings,
+    "fSetup": fFirefoxSetup,
+    "fCleanup": fFirefoxCleanup,
+    "dsURLTemplate_by_srSourceFilePath": dsURLTemplate_by_srSourceFilePath,
+  },
+  "firefox-nightly_x86": {
+    "sBinaryPath": sFirefoxNightlyPath_x86,
+    "fasGetStaticArguments": fasGetFirefoxStaticArguments,
+    "fasGetOptionalArguments": fasGetFirefoxOptionalArguments,
+    "dxConfigSettings": dxConfigSettings,
+    "fSetup": fFirefoxSetup,
+    "fCleanup": fFirefoxCleanup,
+    "dsURLTemplate_by_srSourceFilePath": dsURLTemplate_by_srSourceFilePath,
+  },
+  "firefox-nightly_x64": {
+    "sBinaryPath": sFirefoxNightlyPath_x64,
+    "fasGetStaticArguments": fasGetFirefoxStaticArguments,
+    "fasGetOptionalArguments": fasGetFirefoxOptionalArguments,
+    "dxConfigSettings": dxConfigSettings,
+    "fSetup": fFirefoxSetup,
+    "fCleanup": fFirefoxCleanup,
     "dsURLTemplate_by_srSourceFilePath": dsURLTemplate_by_srSourceFilePath,
   },
 };
