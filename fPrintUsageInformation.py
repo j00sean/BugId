@@ -14,9 +14,9 @@ def fPrintUsageInformation(asApplicationKeywords):
     oConsole.fPrint("    Attach debugger to the process(es) provided in the list. The processes must");
     oConsole.fPrint("    all have been suspended, as they will be resumed by the debugger.");
     oConsole.fPrint();
-    oConsole.fPrint(INFO,"  BugId.py [options] --package=\"full package name\" [-- argument]");
+    oConsole.fPrint(INFO,"  BugId.py [options] --uwp=\"<package name>!<application id>\" [-- argument]");
     oConsole.fPrint("    Start and debug the Universal Windows App specified through its package");
-    oConsole.fPrint("    name with the provided argument.");
+    oConsole.fPrint("    name and application id with the provided argument.");
     oConsole.fPrint();
     oConsole.fPrint(INFO,"  BugId.py [options] application [options] [-- argument [argument [...]]]");
     oConsole.fPrint("    (Where \"application\" is a known application keyword, see below)");
